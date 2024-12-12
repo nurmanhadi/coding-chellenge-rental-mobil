@@ -20,4 +20,5 @@ func SetupRoutes(app *fiber.App, c handlers.CarHandler, o handlers.OrderHandler)
 	order.Post("/", o.AddOrder)
 	order.Delete("/:id", o.DeleteOrder)
 	order.Get("/", o.GetOrders)
+	order.Patch("/:id", o.UpdateOrders)
 }
