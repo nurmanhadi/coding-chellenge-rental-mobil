@@ -40,6 +40,6 @@ func (r *OrderRepositoryImpl) CountOrder(id uint) (int64, error) {
 }
 func (r *OrderRepositoryImpl) GetOrders() ([]models.Order, error) {
 	var order []models.Order
-	err := r.db.Preload("cars").Find(&order).Error
+	err := r.db.Find(&order).Error
 	return order, err
 }
