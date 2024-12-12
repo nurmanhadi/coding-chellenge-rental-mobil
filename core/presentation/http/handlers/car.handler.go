@@ -5,6 +5,7 @@ import (
 	"coding-chelleng/core/application/services"
 	"coding-chelleng/pkg"
 	"strconv"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -40,11 +41,10 @@ func (h *CarHandlerImpl) AddCar(c *fiber.Ctx) error {
 	dRate, _ := strconv.ParseFloat(c.FormValue("day_rate"), 32)
 	mRate, _ := strconv.ParseFloat(c.FormValue("month_rate"), 32)
 
-	fileName := fImg.Filename
-	// dst, _ := os.Create("/core/presentation/http/resource/img/")
-	// _, err := io.Copy(dst, fImg)
+	filePath := "./core/presentation/http/resource/img/" + fImg.Filename + time.Now().String()
+	c.SaveFile(fImg, filePath)
 
-	if err := h.service.AddCar(fName, float32(dRate), float32(mRate), fileName); err != nil {
+	if err := h.service.AddCar(fName, float32(dRate), float32(mRate), fImg.Filename); err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"status":  false,
 			"message": "internal server error",
